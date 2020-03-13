@@ -21,8 +21,8 @@ install:
 		github.com/DATA-DOG/go-sqlmock \
 		github.com/onsi/ginkgo/ginkgo \
 		github.com/onsi/gomega/...
-
 	go install github.com/SafetyCulture/s12-proto/protobuf/protoc-gen-gogrpcmock
+	go get -tags 'mysql' -u github.com/golang-migrate/migrate/cmd/migrate
 
 # Remove the protobuf file which we generate
 	rm ./pb/**/*.pb.go
