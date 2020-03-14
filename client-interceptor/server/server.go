@@ -12,13 +12,13 @@ import (
 
 type server struct{}
 
-func (s *server) GetStatus(ctx context.Context, req *HelloRequest) (*HelloResponse, error) {
+func (s *server) GetStatus(ctx context.Context, req *pb.HelloRequest) (*pb.HelloResponse, error) {
 
-	fmt.Println("[roguesecurity] Inside GetStatus() method")
+	fmt.Println("[roguesecurity] GetStatus() method invoked")
 
-	name := req.GetName()
-	departmant := req.GetDepartment()
-	role := req.GetRole()
+	// name := req.GetDetails().GetName()
+	// departmant := req.GetDetails().GetDepartment()
+	role := req.GetDetails().GetRole()
 
 	var result string
 

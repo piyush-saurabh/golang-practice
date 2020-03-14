@@ -11,11 +11,22 @@ import (
 )
 
 const (
-	serverIP   = "localhost"
 	serverPort = "50053"
+	role       = "admin"
+)
+
+var (
+	serverIP string
 )
 
 func main() {
+
+	// Read the gRPC server IP from the client
+	fmt.Printf("Enter the gRPC server IP: ")
+	_, err := fmt.Scanf("%s\n", &serverIP)
+	if err != nil {
+		log.Fatalf("[roguesecurity] There was an error while reading gRPC server IP: %v", err)
+	}
 
 	serverAddress := serverIP + ":" + serverPort
 	fmt.Println("[roguesecurity] gRPC client is trying to connect to: " + serverAddress)
@@ -45,12 +56,17 @@ func checkResult(c pb.HelloServiceClient) {
 		Details: &pb.Hello{
 			Name:       "Piyush Saurabh",
 			Department: "Security",
-			Role:       "admin",
+			Role:       role,
 		},
 	}
 
+	// Get the root context
+	ctx := context.Background()
+
+	// Create a metadata
+
 	// Make gRPC call to the server
-	res, err := c.GetStatus(context.Background(), req)
+	res, err := c.GetStatus(ctx, req)
 
 	if err != nil {
 		log.Fatalf("[roguesecurity] Error while calling GetStatus() RPC: %v", err)
