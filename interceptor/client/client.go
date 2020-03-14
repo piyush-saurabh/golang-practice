@@ -5,11 +5,10 @@ import (
 	"fmt"
 	"log"
 
-	"google.golang.org/grpc/metadata"
-
 	"github.com/roguesecurity/golang-practice/interceptor/pb"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/metadata"
 )
 
 const (
@@ -68,7 +67,7 @@ func checkResult(c pb.HelloServiceClient) {
 	ctx := context.Background()
 
 	// Create a metadata
-	md := metadata.Pairs("authorization", "Bearer some.jwt.token")
+	md := metadata.Pairs("authorization", "some.jwt.token1")
 
 	// Attach this metadata to the current context
 	ctx = metadata.NewOutgoingContext(ctx, md)
