@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package hello;
 
-option go_package="hellopb";
+option go_package="pb";
 
 message Hello{
     string name = 1;
