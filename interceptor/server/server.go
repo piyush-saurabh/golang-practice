@@ -6,8 +6,6 @@ import (
 	"log"
 	"net"
 
-	"google.golang.org/grpc/metadata"
-
 	"github.com/roguesecurity/golang-practice/interceptor/pb"
 	"google.golang.org/grpc"
 )
@@ -23,16 +21,6 @@ type server struct{}
 func (s *server) GetStatus(ctx context.Context, req *pb.HelloRequest) (*pb.HelloResponse, error) {
 
 	fmt.Println("[roguesecurity] GetStatus() method invoked")
-
-	// Read the metadata from the context
-	// Sample output:
-	// md = map[:authority:[localhost:50053] authorization:[Bearer some.jwt.token] content-type:[application/grpc] user-agent:[grpc-go/1.29.0-dev]]
-	if md, ok := metadata.FromIncomingContext(ctx); ok {
-
-		token := md["authorization"]
-
-		fmt.Printf("Authorization header value = %v \n", token[0])
-	}
 
 	// name := req.GetDetails().GetName()
 	// departmant := req.GetDetails().GetDepartment()
