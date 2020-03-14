@@ -33,8 +33,13 @@ func main() {
 	serverAddress := serverIP + ":" + serverPort
 	fmt.Println("[roguesecurity] gRPC client is trying to connect to: " + serverAddress)
 
-	// create a connection to server
-	con, err := grpc.Dial(serverAddress, grpc.WithInsecure())
+	// create a normal connection to server. (without any interceptor)
+	// con, err := grpc.Dial(serverAddress, grpc.WithInsecure())
+
+	// Create a connection to the server with UnaryClientInterceptor. location: client/interceptor.go
+	// This interceptor will add the metadata 'x-interceptor: client' before making request to the server
+	i := &clientInterceptor{}
+	con, err := grpc.Dial(serverAddress, grpc.WithUnaryInterceptor(i.UnaryClientInterceptor), grpc.WithInsecure())
 
 	// Close the connection at the end
 	defer con.Close()
@@ -52,8 +57,6 @@ func main() {
 
 // Make request to gRPC server
 func checkResult(c pb.HelloServiceClient) {
-	fmt.Println("[roguesecurity] Calling gRPC server from the method checkResult()")
-
 	req := &pb.HelloRequest{
 		Details: &pb.Hello{
 			Name:       "Piyush Saurabh",
@@ -72,7 +75,9 @@ func checkResult(c pb.HelloServiceClient) {
 	ctx = metadata.NewOutgoingContext(ctx, md)
 
 	// Make gRPC call to the server
+	fmt.Println("[roguesecurity] Before calling GetStatus() RPC on the server")
 	res, err := c.GetStatus(ctx, req)
+	fmt.Println("[roguesecurity] After calling GetStatus() RPC on the server")
 
 	if err != nil {
 		log.Fatalf("[roguesecurity] Error while calling GetStatus() RPC: %v", err)
