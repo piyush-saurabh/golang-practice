@@ -25,6 +25,7 @@ func GlobalRepo(db *xorm.Engine) GlobalRepository {
 	return globalRepositoryInstance
 }
 
+// This structure acts as the interface for the database
 type globalRepository struct {
 	db    *xorm.Engine
 	repos map[string]interface{}
