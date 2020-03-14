@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package hello;
+
+option go_package="hellopb";
+
+message Hello{
+    string name = 1;
+    string department = 2;
+    string role = 3; //it can be 'admin' or 'regular'
+}
+
+message HelloRequest {
+    Hello details = 1;
+}
+
+// Response with be 'allowed' or 'not allowed' based on request header/metadata
+message HelloResponse {
+    string status = 1;
+}
+
+// This service will bind to ONE port on the server. Analogous to 1 microservice
+// This service exposes 1 method. Analogous to 1 verbs in REST
+service HelloService{
+
+    //unary
+    rpc GetStatus(HelloRequest) returns (HelloResponse){};
+}
