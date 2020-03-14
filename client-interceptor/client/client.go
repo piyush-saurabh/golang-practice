@@ -38,8 +38,7 @@ func main() {
 
 	// Create a connection to the server with UnaryClientInterceptor. location: client/interceptor.go
 	// This interceptor will add the metadata 'x-interceptor: client' before making request to the server
-	i := &clientInterceptor{}
-	con, err := grpc.Dial(serverAddress, grpc.WithUnaryInterceptor(i.UnaryClientInterceptor), grpc.WithInsecure())
+	con, err := grpc.Dial(serverAddress, grpc.WithUnaryInterceptor(clientInterceptor), grpc.WithInsecure())
 
 	// Close the connection at the end
 	defer con.Close()

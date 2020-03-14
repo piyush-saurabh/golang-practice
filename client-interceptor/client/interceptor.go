@@ -9,14 +9,11 @@ import (
 	"google.golang.org/grpc"
 )
 
-type clientInterceptor struct {
-}
-
 // UnaryClientInterceptor is the unary client interceptor
 // This interceptor will add a metadata 'x-interceptor: client'
-func (c *clientInterceptor) UnaryClientInterceptor(ctx context.Context, method string, req interface{}, reply interface{}, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
+func clientInterceptor(ctx context.Context, method string, req interface{}, reply interface{}, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
 
-	fmt.Println("UnaryClientInterceptor interceptor invoked")
+	fmt.Println("clientInterceptor interceptor invoked")
 
 	// Add the metadata to the current context
 	// 'x-interceptor: client'
