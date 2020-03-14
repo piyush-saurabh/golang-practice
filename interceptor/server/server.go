@@ -8,7 +8,7 @@ import (
 
 	"google.golang.org/grpc/metadata"
 
-	"github.com/roguesecurity/golang-practice/client-interceptor/pb"
+	"github.com/roguesecurity/golang-practice/interceptor/pb"
 	"google.golang.org/grpc"
 )
 
