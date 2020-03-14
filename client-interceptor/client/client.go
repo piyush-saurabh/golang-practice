@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 
+	"google.golang.org/grpc/metadata"
+
 	"github.com/roguesecurity/golang-practice/client-interceptor/pb"
 
 	"google.golang.org/grpc"
@@ -64,6 +66,10 @@ func checkResult(c pb.HelloServiceClient) {
 	ctx := context.Background()
 
 	// Create a metadata
+	md := metadata.Pairs("authorization", "Bearer some.jwt.token")
+
+	// Attach this metadata to the current context
+	ctx = metadata.NewOutgoingContext(ctx, md)
 
 	// Make gRPC call to the server
 	res, err := c.GetStatus(ctx, req)
