@@ -13,7 +13,7 @@ Value of argument can be specified using
 * --argument "value with space"
 
 Help should follow following convention
-* Use <> for **requierd** parameter. ping <hostname>
+* Use <> for **requierd** parameter. ping "<hostname>"
 * Use [] for **optional** parameter. e.g. mkdir [-p] <dirname>
 * Use {} for **choise**. e.g netstat {-t|-u}
 
